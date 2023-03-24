@@ -24,10 +24,6 @@ namespace Archer
         // (para que la cámara esté más orienta hacia la cabeza que a los pies)
         [SerializeField]
         private Vector3 offset;
-        
-        // Velocidad a la que se mueve la cámara con Vector3.MoveTowards()
-        //[SerializeField]
-        //private float travelSpeed;
 
         // Tiempo que tarda la cámara en moverse a la nueva ubicación con Vector3.Lerp()
         [SerializeField]
@@ -35,9 +31,11 @@ namespace Archer
 
         private void Update()
         {
-  
+            Vector3 desiredPosition = target.position + (Quaternion.Euler(0, angle, 0) * offset) - (target.forward * distance);
+
+            transform.position = Vector3.Lerp(transform.position, desiredPosition, travelTime * Time.deltaTime);
+
+            transform.LookAt(target);
         }
-
     }
-
 }
