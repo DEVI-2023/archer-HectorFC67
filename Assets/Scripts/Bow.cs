@@ -53,16 +53,20 @@ namespace Archer
 
 
             // Instanciar una flecha
-           
+            GameObject arrow = Instantiate(arrowPrefab);
 
             // Colocar la flecha en el punto de referencia de la mano de la arquera
-         
+            arrow.transform.position = handPosition.position;
 
             // Orientar la flecha hacia delante con respecto a la arquera
-           
+            Quaternion characterRotation = transform.rotation;
+            Quaternion arrowRotation = Quaternion.LookRotation(characterRotation * Vector3.forward);
+            arrow.transform.rotation = arrowRotation;
 
             // Aplicar una fuerza a la flecha para que salga disparada
-          
+            Rigidbody rb = arrow.GetComponent<Rigidbody>();
+            animator.SetTrigger("Shoot");
+            rb.AddForce(arrow.transform.forward * force);
         }
     }
 

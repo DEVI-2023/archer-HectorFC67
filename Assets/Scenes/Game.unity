@@ -411,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireInputReference: {fileID: 5197073158939415375, guid: fd9d5ebb29d8f644abc8a12d57b17173, type: 3}
   arrowPrefab: {fileID: 1256064569770400, guid: 5a341abfeeb6f3743b7686c2984e0c6e, type: 3}
-  force: 1000
+  force: 1500
   handPosition: {fileID: 2143648746}
 --- !u!1001 &486735436
 PrefabInstance:
@@ -5572,7 +5572,7 @@ MonoBehaviour:
   angle: -70
   distance: 4
   offset: {x: 0, y: 3, z: 0}
-  travelTime: 7
+  travelTime: 5
 --- !u!1 &1308445111 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6328325485107444608, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
