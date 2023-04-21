@@ -32,7 +32,7 @@ namespace Archer
 
         private void Awake()
         {
-           
+
             // Nos subscribimos al evento de input de disparo (el espacio o el botón A).
             fireInputReference.action.performed += Action_performed;
 
@@ -43,30 +43,37 @@ namespace Archer
         {
             // Cuando se pulsa espacio, producimos un disparo
             StartCoroutine(Shoot());
+            this.animator.SetTrigger("Shoot");
         }
 
         private IEnumerator Shoot()
         {
-          
+
 
             yield return new WaitForSeconds(0.3f);
 
 
             // Instanciar una flecha
-            GameObject arrow = Instantiate(arrowPrefab);
+            GameObject newArrow = Instantiate(arrowPrefab, this.transform.position, this.transform.rotation);
+
 
             // Colocar la flecha en el punto de referencia de la mano de la arquera
-            arrow.transform.position = handPosition.position;
+            checkArrowPosition(handPosition, newArrow);
+
 
             // Orientar la flecha hacia delante con respecto a la arquera
-            Quaternion characterRotation = transform.rotation;
-            Quaternion arrowRotation = Quaternion.LookRotation(characterRotation * Vector3.forward);
-            arrow.transform.rotation = arrowRotation;
+            newArrow.transform.rotation = Quaternion.Euler(this.transform.rotation.eulerAngles);
 
             // Aplicar una fuerza a la flecha para que salga disparada
-            Rigidbody rb = arrow.GetComponent<Rigidbody>();
-            animator.SetTrigger("Shoot");
-            rb.AddForce(arrow.transform.forward * force);
+            newArrow.GetComponent<Rigidbody>().AddForce(this.transform.forward * force);
+
+        }
+
+        private void checkArrowPosition(Transform trans, GameObject arrow)
+        {
+            arrow.transform.position = trans.position;
+            arrow.transform.rotation = trans.rotation;
+            arrow.transform.localScale = trans.localScale;
         }
     }
 
